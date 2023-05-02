@@ -1,0 +1,54 @@
+# Copyright (c) 2023 Victor Palma
+# All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+api_token: 0000000000000000000000000000000000000
+interval: 15
+db_targets:
+  postgres09:
+    - host: 10.16.7.209
+    - port: 5438
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw09
+    - database: currency
+  postgres10:
+    - port: 5437
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw10
+    - database: currency
+  postgres11:
+    - port: 5436
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw11
+    - database: currency
+  postgres12:
+    - port: 5435
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw12
+    - database: currency
+  postgres13:
+    - port: 5434
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw13
+    - database: currency
+  postgres14:
+    - port: 5433
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw14
+    - database: currency
+  postgres15:
+    - port: 5432
+    - host: 10.16.7.209
+    - user: postgres
+    - password: RQBP8395VaZHDDdkxw15
+    - database: currency

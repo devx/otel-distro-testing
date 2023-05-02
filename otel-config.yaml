@@ -1,0 +1,37 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  sqlquery/9:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5438 user=postgres password=RQBP8395VaZHDDdkxw09 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 9
+
+processors:
+  batch:
+
+exporters:
+  prometheusremotewrite:
+    endpoint: https://listener.logz.io:8053
+    headers:
+      Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+extensions:
+  health_check:
+  pprof:
+  zpages:
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp, sqlquery/9]
+      processors: [batch]
+      exporters: [prometheusremotewrite]

@@ -1,0 +1,119 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  sqlquery/9:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5438 user=postgres password=RQBP8395VaZHDDdkxw09 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 9
+  sqlquery/10:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5437 user=postgres password=RQBP8395VaZHDDdkxw10 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 10
+  sqlquery/11:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5436 user=postgres password=RQBP8395VaZHDDdkxw11 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 11
+  sqlquery/12:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5435 user=postgres password=RQBP8395VaZHDDdkxw12 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 12
+  sqlquery/13:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5434 user=postgres password=RQBP8395VaZHDDdkxw13 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 13
+  sqlquery/14:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5433 user=postgres password=RQBP8395VaZHDDdkxw14 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 14
+  sqlquery/15:
+    driver: postgres
+    datasource: "host=10.16.7.209 port=5432 user=postgres password=RQBP8395VaZHDDdkxw15 dbname=currency sslmode=disable"
+    queries:
+      - sql: "SELECT rate_usd, symbol FROM asset"
+        metrics:
+          - metric_name: currency.usd_rate
+            value_column: "rate_usd"
+            value_type: "double"
+            attribute_columns: ["symbol"]
+            static_attributes:
+              postgres_ver: 15
+
+processors:
+  batch:
+
+exporters:
+  prometheusremotewrite:
+    endpoint: https://listener.logz.io:8053
+    headers:
+      Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+extensions:
+  health_check:
+  pprof:
+  zpages:
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    metrics:
+      receivers:
+        [
+          otlp,
+          sqlquery/9,
+          sqlquery/10,
+          sqlquery/11,
+          sqlquery/12,
+          sqlquery/13,
+          sqlquery/14,
+          sqlquery/15,
+        ]
+      processors: [batch]
+      exporters: [prometheusremotewrite]

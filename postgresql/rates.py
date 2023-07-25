@@ -12,7 +12,17 @@ import requests
 import psycopg2
 import yaml
 import json
+import akeyless
 from datetime import datetime
+
+
+configuration = akeyless.Configuration(
+        host = "https://api.akeyless.io"
+)
+
+def get_secret(secret_id):
+    body = akeyless.GetSecretValue(names=['secret_id'], token=token)
+    res = api.get_secret_value(body)
 
 def get_currency_rates(api_token):
     headers = {
@@ -58,7 +68,8 @@ def main(config_file):
     with open(config_file, 'r') as f:
         config = yaml.safe_load(f)
 
-    api_token = config['api_token']
+    # api_token = config['api_token']
+    api_token = get_secret('/coincap/api_token')
     db_targets = config['db_targets']
 
     while True:
